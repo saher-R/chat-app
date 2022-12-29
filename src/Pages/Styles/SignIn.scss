@@ -1,0 +1,149 @@
+.signin-page {
+  background-color: rgb(28, 28, 28);
+  background: linear-gradient(to left, rgb(28, 28, 28), rgba(28, 28, 28, 0.863), rgb(28, 28, 28));
+
+  * {
+    font-family: 'poppins', sans-serif;
+  }
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .container {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+
+  }
+
+  span {
+    color: rgb(118, 118, 118);
+    color: #aaa;
+    font-size: 0.87rem;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+  }
+
+  header {
+    color: #ccc;
+    // color: #fff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+    text-shadow: 0 0 10px #111;
+  }
+
+  .input-field .input {
+    height: 45px;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    color: #ccc;
+    font-size: 15px;
+    padding: 0 0 0 45px;
+    background: #333;
+    box-shadow: 0 0 8px #555;
+    outline: none;
+    margin: 4px 0;
+    transition: 0.15s;
+
+    &::placeholder {
+      color: #888;
+    }
+
+    &:focus {
+      box-shadow: 0 0 13px #888;
+    }
+  }
+
+  i {
+    position: relative;
+    top: -33px;
+    left: 17px;
+    color: rgb(82, 82, 82);
+  }
+
+  ::-webkit-input-placeholder {
+    color: rgb(77, 77, 77);
+  }
+
+  .submit {
+    border: none;
+    border-radius: 30px;
+    font-size: 0.97rem;
+    height: 45px;
+    outline: none;
+    width: 100%;
+    color: black;
+    background: #aaa;
+    cursor: pointer;
+    transition: .24s;
+    margin-top: 3.5px;
+
+    &:hover,
+    &:focus {
+      box-shadow: 1px 5px 7px 1px #777;
+      outline: 2px solid rgba(17, 17, 17, 0.156);
+    }
+  }
+
+  .two-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: rgb(132, 132, 132);
+    font-size: small;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 7px;
+
+    &>* * {
+      margin-left: 5px;
+    }
+  }
+
+  .one {
+    display: flex;
+  }
+
+  label a {
+    text-decoration: none;
+    color: rgb(144, 144, 144);
+  }
+
+  .link-to-signup {
+    margin-left: auto;
+    margin-top: 3px;
+
+    label a {
+      color: #888;
+      text-decoration: underline 1.5px #666;
+      text-shadow: 0 0 2px #111;
+      transition: 0.1s;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline 1.5px #777;
+      }
+    }
+  }
+}
+
+
+//****************************
+.signin-page .box {
+  animation: moving-animation-signup 0.6s ease;
+
+  @keyframes moving-animation-signup {
+    0% {
+      scale: 0.25;
+    }
+  }
+}
