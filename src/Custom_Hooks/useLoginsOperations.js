@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../ReduxTK/Slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 ///////////////
@@ -19,21 +19,20 @@ export default function useLoginsOperations() {
   const navigate = useNavigate();
 
   const createUser = async (email, password, userName) => {
-    return createUserWithEmailAndPassword(auth, email, password).then(
-      ({ user }) => {
-        updateProfile(auth.currentUser, {
-          displayName: userName,
-        }).then(() => {
-          const { uid, email, displayName, photoURL } = user;
-          setDoc(doc(db, "users", uid), {
-            uid,
-            email,
-            displayName,
-            photoURL,
-          });
+    createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
+      updateProfile(auth.currentUser, {
+        displayName: userName,
+      }).then(() => {
+        const { uid, email, displayName, photoURL } = user;
+        setDoc(doc(db, "users", uid), {
+          uid,
+          email,
+          displayName,
+          photoURL,
         });
-      }
-    );
+      });
+    });
+    // }
   };
 
   const signIn = (email, password) => {
@@ -46,6 +45,8 @@ export default function useLoginsOperations() {
     await signOut(auth);
     return dispatch(setUser(undefined));
   };
+
+  const user = useSelector((state) => state.current_user.user);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -63,6 +64,7 @@ export default function useLoginsOperations() {
       unsubscribe();
     };
   }, []);
+  // }, [user]);
 
   /**************************************** */
   return { createUser, signIn, logout };

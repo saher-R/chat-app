@@ -37,13 +37,8 @@ export default function RightSide() {
   const user = useSelector((state) => state.current_user.user);
   /////
   async function sendText() {
-    const { uid, email, displayName, photoURL } = user;
-    const {
-      uid: uidOpp,
-      email: emailOpp,
-      displayName: displayNameOpp,
-      photoURL: photoURLOpp,
-    } = currentChat.userInfo;
+    const { uid, displayName, photoURL } = user;
+    const { uid: uidOpp, displayName: displayNameOpp } = currentChat.userInfo;
     // before we need to get prev messages...
     const getPrevMess = await getDoc(
       doc(db, "users", uid, "chatsList", displayNameOpp)
@@ -59,6 +54,7 @@ export default function RightSide() {
         uid: uid,
       },
     };
+    setTextMess("");
     const newMess = [...prevMess, currentMess];
     // // 1) add mess to currentUser
     await updateDoc(doc(db, "users", user.uid, "chatsList", displayNameOpp), {
@@ -68,7 +64,6 @@ export default function RightSide() {
     await updateDoc(doc(db, "users", uidOpp, "chatsList", user.displayName), {
       messages: newMess,
     });
-    setTextMess("");
   }
 
   return (
@@ -101,6 +96,16 @@ export default function RightSide() {
               </ul>
             </div>
           </>
+        )}
+        {currentChat == undefined && (
+          <div className="settings" style={{ marginLeft: "auto" }}>
+            <ul>
+              <div className="sign-out" onClick={handleSignOut}>
+                <i class="bi bi-box-arrow-left"></i>
+                SignOut
+              </div>
+            </ul>
+          </div>
         )}
       </div>
       {/* messages */}

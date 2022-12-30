@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import useLoginsOperations from "../Custom_Hooks/useLoginsOperations";
 import { toast } from "react-toastify";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Firebase/firebase-config";
 
 export default function SignUp() {
   const { createUser } = useLoginsOperations();
   const user = useSelector((state) => state.current_user.user);
-  
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,29 +18,50 @@ export default function SignUp() {
 
   const navigate = useNavigate();
 
-  function handleSignUp() {
+  async function handleSignUp() {
     if (email.trim() != "" && password.trim() != "" && userName.trim() != "") {
+      //first: check if this displayName already used.
       setLoading(true);
-      createUser(email, password, userName)
-        .then(() => {
-          setLoading(true);
-          navigate("/");
-          /////
-          toast.success("Sign Up Successfully", {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            theme: "dark",
+      const _users = await getDocs(collection(db, "users"));
+      let check = true;
+      _users.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        if (doc.data().displayName == userName) {
+          alert("This User Name already used, Try another one please.");
+          check = false;
+          setLoading(false);
+          return;
+        }
+      });
+      if (check) {
+        //
+        setLoading(true);
+        createUser(email, password, userName)
+          .then(() => {
+            setLoading(true);
+            // navigate("/");
+            /////
+            toast.success("Sign Up Successfully", {
+              position: "top-center",
+              autoClose: 2500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "dark",
+            });
+          })
+          .catch((err) => {
+            alert(err.message);
+          })
+          .finally(() => {
+            setTimeout(() => {
+              setLoading(false);
+              window.location.pathname = "/";
+            }, 1500);
           });
-        })
-        .catch((err) => {
-          alert(err.message);
-        })
-        .finally(() => setLoading(false));
+      }
     } else alert("Fill All Fields.");
   }
 
