@@ -72,72 +72,72 @@ export default function SignUp() {
 
   return (
     <div className="signup-page">
-      <div class="box">
-        <div class="container">
-          <div class="top">
+      <div className="box">
+        <div className="container">
+          <div className="top">
             <span>Create an account.</span>
             <header>SignUp</header>
           </div>
-          <div class="input-field">
+          <div className="input-field">
             <input
               type="text"
-              class="input"
+              className="input"
               placeholder="Username"
               // id=""
               onChange={(e) => setUserName(e.target.value)}
               value={userName}
             />
-            <i class="bi bi-person-fill"></i>
+            <i className="bi bi-person-fill"></i>
           </div>
-          <div class="input-field">
+          <div className="input-field">
             <input
               type="email"
-              class="input"
+              className="input"
               placeholder="Email"
               // id=""
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            <i class="bi bi-envelope-at"></i>
+            <i className="bi bi-envelope-at"></i>
           </div>
-          <div class="input-field">
+          <div className="input-field">
             <input
               type="Password"
-              class="input"
+              className="input"
               placeholder="Password"
               // id=""
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
-            <i class="bi bi-lock"></i>
+            <i className="bi bi-lock"></i>
           </div>
 
-          <div class="input-field">
+          <div className="input-field">
             <input
               type="file"
-              class="input"
+              className="input"
               // id=""
               onChange={(e) => setImgFile(e.target.files[0])}
               style={{ paddingTop: "10px" }}
             />
-            <i class="bi bi-image-fill"></i>
+            <i className="bi bi-image-fill"></i>
           </div>
 
-          <div class="two-col">
-            <div class="one ms-2">
+          <div className="two-col">
+            <div className="one ms-2">
               <input type="checkbox" name="" id="check" />
-              <label for="check"> Remember Me</label>
+              <label htmlFor="check"> Remember Me</label>
             </div>
           </div>
-          <div class="input-field" onClick={handleSignUp}>
+          <div className="input-field" onClick={handleSignUp}>
             <input
               type="submit"
-              class="submit"
+              className="submit"
               value={loading ? "Loading..." : "SignUp"}
               // id=""
             />
           </div>
-          <div class="link-to-signin">
+          <div className="link-to-signin">
             <label>
               <Link to="/signin">Go to SignIn</Link>
             </label>

@@ -51,52 +51,52 @@ export default function SignIn() {
 
   return (
     <div className="signin-page">
-      <div class="box">
-        <div class="container">
-          <div class="top">
+      <div className="box">
+        <div className="container">
+          <div className="top">
             <span>Have an account?</span>
             <header>Login</header>
           </div>
-          <div class="input-field">
+          <div className="input-field">
             <input
               type="email"
-              class="input"
+              className="input"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            <i class="bi bi-envelope-at"></i>
+            <i className="bi bi-envelope-at"></i>
           </div>
-          <div class="input-field">
+          <div className="input-field">
             <input
               type="Password"
-              class="input"
+              className="input"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
-            <i class="bi bi-lock"></i>
+            <i className="bi bi-lock"></i>
           </div>
-          <div class="input-field" onClick={handleSignIn}>
+          <div className="input-field" onClick={handleSignIn}>
             <input
               type="submit"
-              class="submit"
+              className="submit"
               value={loading ? "Loading..." : "Login"}
               // id=""
             />
           </div>
-          <div class="two-col">
-            <div class="one">
+          <div className="two-col">
+            <div className="one">
               <input type="checkbox" name="" id="check" />
-              <label for="check"> Remember Me</label>
+              <label htmlFor="check"> Remember Me</label>
             </div>
-            <div class="two">
+            <div className="two">
               <label>
                 <a href="#">Forgot password?</a>
               </label>
             </div>
           </div>
-          <div class="link-to-signup">
+          <div className="link-to-signup">
             <label>
               <Link to="/signup">Go to SingUp</Link>
             </label>

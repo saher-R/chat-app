@@ -93,13 +93,13 @@ export default function RightSide() {
             <div className="settings">
               <ul>
                 <li>
-                  <i class="bi bi-search"></i>
+                  <i className="bi bi-search"></i>
                 </li>
                 <li>
-                  <i class="bi bi-three-dots-vertical"></i>
+                  <i className="bi bi-three-dots-vertical"></i>
                 </li>
                 <div className="sign-out" onClick={handleSignOut}>
-                  <i class="bi bi-box-arrow-left"></i>
+                  <i className="bi bi-box-arrow-left"></i>
                   SignOut
                 </div>
               </ul>
@@ -110,7 +110,7 @@ export default function RightSide() {
           <div className="settings" style={{ marginLeft: "auto" }}>
             <ul>
               <div className="sign-out" onClick={handleSignOut}>
-                <i class="bi bi-box-arrow-left"></i>
+                <i className="bi bi-box-arrow-left"></i>
                 SignOut
               </div>
             </ul>
@@ -121,7 +121,7 @@ export default function RightSide() {
       <Messages />
       {/* send-input */}
       <div className="send-input">
-        <i class="bi bi-emoji-smile"></i>
+        <i className="bi bi-emoji-smile"></i>
         <textarea
           placeholder="Message Here..."
           disabled={currentChat == undefined}
@@ -130,12 +130,12 @@ export default function RightSide() {
         ></textarea>
         {textMess.trim() != "" ? (
           <i
-            class="bi bi-send-fill"
+            className="bi bi-send-fill"
             style={{ outline: "3.5px solid #666", transition: "0.2s" }}
             onClick={sendText}
           ></i>
         ) : (
-          <i class="bi bi-mic-fill"></i>
+          <i className="bi bi-mic-fill"></i>
         )}
       </div>
     </div>

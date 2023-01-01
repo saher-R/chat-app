@@ -42,7 +42,9 @@ export default function Messages() {
           return (
             <div
               className={
-                data.userSent.uid == user.uid ? "right-message" : "left-message"
+                data?.userSent.uid == user?.uid
+                  ? "right-message"
+                  : "left-message"
               }
               key={data.id_Rand}
               ref={refScroll}
@@ -63,7 +65,7 @@ export default function Messages() {
                 <div className="text-mess">{data.text}</div>
               </div>
               <div className="settings">
-                <i class="bi bi-three-dots"></i>
+                <i className="bi bi-three-dots"></i>
               </div>
             </div>
           );

@@ -75,7 +75,7 @@ export default function SearchFriends() {
   return (
     <div className="search-sec">
       <div className="search-input">
-        <i class="bi bi-search"></i>
+        <i className="bi bi-search"></i>
         <input
           type="text"
           placeholder="Search Friends"

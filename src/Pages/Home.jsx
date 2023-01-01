@@ -23,13 +23,13 @@ export default function Home() {
             <div className="settings">
               <ul>
                 <li>
-                  <i class="bi bi-three-dots-vertical"></i>
+                  <i className="bi bi-three-dots-vertical"></i>
                 </li>
                 <li>
-                  <i class="bi bi-archive-fill"></i>
+                  <i className="bi bi-archive-fill"></i>
                 </li>
                 <li>
-                  <i class="bi bi-chat-square-dots-fill"></i>
+                  <i className="bi bi-chat-square-dots-fill"></i>
                 </li>
               </ul>
             </div>
