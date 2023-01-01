@@ -1,3 +1,4 @@
+import "./Styles/SearchFriends.scss";
 import React, { useEffect, useState } from "react";
 import {
   collection,
@@ -15,7 +16,10 @@ export default function SearchFriends() {
   const [listOfSearched, setListOfSearched] = useState([]);
 
   async function getSearchFriends(e) {
-    if (search.trim() != "" && e?.code == "Enter") {
+    if (
+      search.trim() != "" &&
+      (e?.code == "Enter" || e?.code == "NumpadEnter")
+    ) {
       const q = query(
         collection(db, "users"),
         where("displayName", "==", search)
@@ -35,14 +39,11 @@ export default function SearchFriends() {
       }
     }
     //**********************
-    if (e?.code == "Backspace" || e?.code == "Delete") {
+    if (e?.code == "Backspace" || e?.code == "Delete" || search.trim() == "") {
       // Backspace & Delete Btns..
       setListOfSearched([]);
     }
   }
-  useEffect(() => {
-    if (search.trim() != "") getSearchFriends();
-  }, [search]);
 
   //------------------------------------------
   // Now add users to Our Chats List...
@@ -52,12 +53,23 @@ export default function SearchFriends() {
     await setDoc(doc(db, "users", user.uid, "chatsList", friend.displayName), {
       userInfo: friend,
       messages: [],
+      lastMessage: {
+        text: "",
+        date: "",
+      },
     });
     // add to oppositeUser List.
     await setDoc(doc(db, "users", friend.uid, "chatsList", user.displayName), {
       userInfo: user,
       messages: [],
+      lastMessage: {
+        text: "",
+        date: "",
+      },
     });
+    //
+    setListOfSearched([]);
+    setSearch("");
   }
 
   return (

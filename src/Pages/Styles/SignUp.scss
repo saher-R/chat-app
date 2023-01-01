@@ -1,6 +1,6 @@
 .signup-page {
   background-color: rgb(28, 28, 28);
-  background: linear-gradient(to left, rgb(28, 28, 28),rgba(28, 28, 28, 0.863),rgb(28, 28, 28));
+  background: linear-gradient(to left, rgb(28, 28, 28), rgba(28, 28, 28, 0.863), rgb(28, 28, 28));
 
   * {
     font-family: 'poppins', sans-serif;
@@ -40,6 +40,7 @@
     text-shadow: 0 0 10px #111;
   }
 
+
   .input-field .input {
     height: 45px;
     width: 100%;
@@ -49,23 +50,25 @@
     font-size: 15px;
     padding: 0 0 0 45px;
     background: #333;
-    box-shadow: 0 0 8px #555 ;
+    box-shadow: 0 0 8px #555;
     outline: none;
-    margin: 4px 0;
+    margin: 1px 0;
     transition: 0.15s;
+
     &::placeholder {
       color: #888;
     }
-    &:focus{
-      box-shadow: 0 0 13px #888 ;
+
+    &:focus {
+      box-shadow: 0 0 13px #888;
     }
   }
 
   i {
     position: relative;
-    top: -33px;
+    top: -32px;
     left: 17px;
-    color: rgb(82, 82, 82);
+    color: #999;
   }
 
   ::-webkit-input-placeholder {
@@ -85,7 +88,8 @@
     transition: .24s;
     margin-top: 3.5px;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       box-shadow: 1px 5px 7px 1px #777;
       outline: 2px solid rgba(17, 17, 17, 0.156);
     }
@@ -100,7 +104,8 @@
     margin-top: 10px;
     margin-left: 10px;
     margin-bottom: 7px;
-    &>* *{
+
+    &>* * {
       margin-left: 5px;
     }
   }
@@ -117,7 +122,7 @@
   .link-to-signin {
     margin-left: auto;
     margin-top: 10px;
-    
+
     label a {
       color: #888;
       text-decoration: underline 1.5px #666;
@@ -128,6 +133,14 @@
       &:focus {
         text-decoration: underline 1.5px #777;
       }
+    }
+  }
+
+  .input-field {
+    height: 56px;
+
+    [type=file] {
+      cursor: pointer;
     }
   }
 

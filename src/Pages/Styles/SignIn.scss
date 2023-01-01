@@ -40,6 +40,10 @@
     text-shadow: 0 0 10px #111;
   }
 
+  .input-field {
+    height: 56px;
+  }
+
   .input-field .input {
     height: 45px;
     width: 100%;
@@ -65,9 +69,9 @@
 
   i {
     position: relative;
-    top: -33px;
+    top: -35px;
     left: 17px;
-    color: rgb(82, 82, 82);
+    color: #999;
   }
 
   ::-webkit-input-placeholder {

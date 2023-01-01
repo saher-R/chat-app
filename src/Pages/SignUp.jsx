@@ -14,6 +14,7 @@ export default function SignUp() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [imgFile, setImgFile] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -31,19 +32,22 @@ export default function SignUp() {
           check = false;
           setLoading(false);
           return;
+        } else if (doc.data().email == email) {
+          alert("This Email already used, Try another one please.");
+          check = false;
+          setLoading(false);
+          return;
         }
       });
       if (check) {
         //
         setLoading(true);
-        createUser(email, password, userName)
+        createUser(email, password, userName, imgFile)
           .then(() => {
             setLoading(true);
-            // navigate("/");
-            /////
             toast.success("Sign Up Successfully", {
               position: "top-center",
-              autoClose: 2500,
+              autoClose: 2800,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: false,
@@ -53,13 +57,8 @@ export default function SignUp() {
             });
           })
           .catch((err) => {
+            setLoading(false);
             alert(err.message);
-          })
-          .finally(() => {
-            setTimeout(() => {
-              setLoading(false);
-              window.location.pathname = "/";
-            }, 1500);
           });
       }
     } else alert("Fill All Fields.");
@@ -88,7 +87,7 @@ export default function SignUp() {
               onChange={(e) => setUserName(e.target.value)}
               value={userName}
             />
-            <i class="bx bx-user"></i>
+            <i class="bi bi-person-fill"></i>
           </div>
           <div class="input-field">
             <input
@@ -99,7 +98,7 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            <i class="bx bx-user"></i>
+            <i class="bi bi-envelope-at"></i>
           </div>
           <div class="input-field">
             <input
@@ -110,8 +109,20 @@ export default function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
-            <i class="bx bx-lock-alt"></i>
+            <i class="bi bi-lock"></i>
           </div>
+
+          <div class="input-field">
+            <input
+              type="file"
+              class="input"
+              // id=""
+              onChange={(e) => setImgFile(e.target.files[0])}
+              style={{ paddingTop: "10px" }}
+            />
+            <i class="bi bi-image-fill"></i>
+          </div>
+
           <div class="two-col">
             <div class="one ms-2">
               <input type="checkbox" name="" id="check" />
@@ -128,7 +139,7 @@ export default function SignUp() {
           </div>
           <div class="link-to-signin">
             <label>
-              <Link to="/signin">Go to SingIn</Link>
+              <Link to="/signin">Go to SignIn</Link>
             </label>
           </div>
         </div>

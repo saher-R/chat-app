@@ -8,6 +8,9 @@ import ReactTimeAgo from "react-time-ago";
 
 export default function Messages() {
   const currentChat = useSelector((state) => state.chats_info.currentChat);
+  const countOfCurrentChats = useSelector(
+    (state) => state.chats_info.countOfCurrentChats
+  );
   const user = useSelector((state) => state.current_user.user);
   const [messages, setMessages] = useState([]);
 
@@ -21,16 +24,15 @@ export default function Messages() {
             if (x.userInfo.uid == currentChat.userInfo.uid)
               setMessages(x.messages);
           });
-          // setLoading(false);
         }
       );
     }
   }, [user, currentChat]);
 
-  //this for goDown page when send mess...
-  const ref = useRef();
+  //this for ScrollDown when send mess...
+  const refScroll = useRef();
   useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
+    refScroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
@@ -43,7 +45,7 @@ export default function Messages() {
                 data.userSent.uid == user.uid ? "right-message" : "left-message"
               }
               key={data.id_Rand}
-              ref={ref}
+              ref={refScroll}
             >
               <div className="mess-info">
                 <div className="user-info">
@@ -51,7 +53,11 @@ export default function Messages() {
                     <img src={data.userSent.photoURL} alt="" />
                   </div>
                   <div className="date-sent">
-                    <ReactTimeAgo date={data.date} locale="en-US" />
+                    <ReactTimeAgo
+                      date={data.date}
+                      locale="en-US"
+                      timeStyle="mini-minute-now"
+                    />
                   </div>
                 </div>
                 <div className="text-mess">{data.text}</div>
@@ -62,6 +68,17 @@ export default function Messages() {
             </div>
           );
         })}
+      {currentChat == undefined && countOfCurrentChats > 0 && (
+        <div className="note-mess--">Choose One Of Chats.</div>
+      )}
+      {currentChat == undefined && countOfCurrentChats == 0 && (
+        <div className="note-mess--">Add Friends to Chats.</div>
+      )}
+      {currentChat != undefined && messages.length == 0 && (
+        <div className="note-mess--">
+          There is no chat yet. <br /> Send "Hi"
+        </div>
+      )}
     </div>
   );
 }

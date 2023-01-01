@@ -65,7 +65,7 @@ export default function SignIn() {
               onChange={(e) => setEmail(e.target.value)}
               value={email}
             />
-            <i class="bx bx-user"></i>
+            <i class="bi bi-envelope-at"></i>
           </div>
           <div class="input-field">
             <input
@@ -75,14 +75,14 @@ export default function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
-            <i class="bx bx-lock-alt"></i>
+            <i class="bi bi-lock"></i>
           </div>
           <div class="input-field" onClick={handleSignIn}>
             <input
               type="submit"
               class="submit"
               value={loading ? "Loading..." : "Login"}
-              id=""
+              // id=""
             />
           </div>
           <div class="two-col">

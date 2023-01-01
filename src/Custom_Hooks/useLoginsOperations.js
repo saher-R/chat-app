@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { auth, db } from "../Firebase/firebase-config";
+import { auth, db, storage } from "../Firebase/firebase-config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -12,27 +12,75 @@ import { setUser } from "../ReduxTK/Slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 ///////////////
 import { doc, setDoc } from "firebase/firestore";
+import { nanoid } from "nanoid";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 export default function useLoginsOperations() {
   ////
 
   const navigate = useNavigate();
 
-  const createUser = async (email, password, userName) => {
-    createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
-      updateProfile(auth.currentUser, {
-        displayName: userName,
-      }).then(() => {
-        const { uid, email, displayName, photoURL } = user;
-        setDoc(doc(db, "users", uid), {
-          uid,
-          email,
-          displayName,
-          photoURL,
+  const createUser = async (email, password, userName, imgFile) => {
+    if (imgFile != undefined) {
+      // ((With Photo..))
+      ///////////////////////
+      const storageRef = ref(storage, "profiles-images/" + nanoid(20));
+      const uploadTask = uploadBytesResumable(storageRef, imgFile);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        },
+        (error) => {
+          alert(error.message);
+        },
+        async () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            //now after add img to storage, create the account.
+            createUserWithEmailAndPassword(auth, email, password).then(
+              ({ user }) => {
+                updateProfile(auth.currentUser, {
+                  displayName: userName,
+                  photoURL: downloadURL,
+                }).then(async () => {
+                  const { uid, email, displayName, photoURL } = user;
+                  await setDoc(doc(db, "users", uid), {
+                    uid,
+                    email,
+                    displayName,
+                    photoURL,
+                  });
+                  dispatch(setUser({ uid, displayName, email, photoURL }));
+                });
+              }
+            );
+          });
+        }
+      );
+      //************************************
+      //////////////////////////////////////
+    } else {
+      // ((Without Photo..))
+      //////////////////////////////////////
+      createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
+        updateProfile(auth.currentUser, {
+          displayName: userName,
+        }).then(async () => {
+          const { uid, email, displayName, photoURL } = user;
+          await setDoc(doc(db, "users", uid), {
+            uid,
+            email,
+            displayName,
+            photoURL,
+          });
+          ///
+          dispatch(setUser({ uid, displayName, email, photoURL }));
         });
       });
-    });
-    // }
+      //////////////////////////////////////
+    }
   };
 
   const signIn = (email, password) => {
@@ -45,8 +93,6 @@ export default function useLoginsOperations() {
     await signOut(auth);
     return dispatch(setUser(undefined));
   };
-
-  const user = useSelector((state) => state.current_user.user);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -64,7 +110,6 @@ export default function useLoginsOperations() {
       unsubscribe();
     };
   }, []);
-  // }, [user]);
 
   /**************************************** */
   return { createUser, signIn, logout };

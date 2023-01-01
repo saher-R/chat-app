@@ -1,3 +1,4 @@
+import "./Styles/RightSide.scss";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,10 +60,18 @@ export default function RightSide() {
     // // 1) add mess to currentUser
     await updateDoc(doc(db, "users", user.uid, "chatsList", displayNameOpp), {
       messages: newMess,
+      lastMessage: {
+        text: textMess,
+        date: new Date().toISOString(),
+      },
     });
     // // 2) add mess to oppositeUser
     await updateDoc(doc(db, "users", uidOpp, "chatsList", user.displayName), {
       messages: newMess,
+      lastMessage: {
+        text: textMess,
+        date: new Date().toISOString(),
+      },
     });
   }
 
@@ -83,16 +92,16 @@ export default function RightSide() {
             </div>
             <div className="settings">
               <ul>
-                <div className="sign-out" onClick={handleSignOut}>
-                  <i class="bi bi-box-arrow-left"></i>
-                  SignOut
-                </div>
                 <li>
                   <i class="bi bi-search"></i>
                 </li>
                 <li>
                   <i class="bi bi-three-dots-vertical"></i>
                 </li>
+                <div className="sign-out" onClick={handleSignOut}>
+                  <i class="bi bi-box-arrow-left"></i>
+                  SignOut
+                </div>
               </ul>
             </div>
           </>

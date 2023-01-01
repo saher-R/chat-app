@@ -6,7 +6,6 @@ import ChatsList from "../Components/ChatsList";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-
   const user = useSelector((state) => state.current_user.user);
 
   return (
